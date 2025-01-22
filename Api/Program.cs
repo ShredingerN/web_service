@@ -6,6 +6,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 //внедрение зависимостей, если нужно что-то на уровне всего приложения, то:
 builder.Services.AddSingleton<DataContext>();
+builder.Services.AddSingleton<ContactStorage>();
 var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
