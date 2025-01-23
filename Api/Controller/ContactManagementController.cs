@@ -1,4 +1,3 @@
-using System.Security.Cryptography;
 using Microsoft.AspNetCore.Mvc;
 
 public class ContactManagementController : BaseController
@@ -24,13 +23,17 @@ public class ContactManagementController : BaseController
         return Ok(contactStorage.GetContacts());
     }
 
-    [HttpDelete("contacts/{id}")]
-    public IActionResult DeleteContact(int id)
+    [HttpGet("contacts/{id}")]
+    public IActionResult SearchContact(int id)
     {
-        bool res = contactStorage.Remove(id);
-        if (res) return NoContent();
-        return BadRequest($"Такого id {id} не существует");
+        if (id < 0)
+        {
+            return BadRequest("Неверный формат идентификатора контакта");
+        }
 
+        Contact res = contactStorage.SearchContact(id);
+        if (res != null) return Ok(res);
+        return NotFound($"Контакт {id} не найден");
     }
 
     [HttpPut("contacts/{id}")]
@@ -41,12 +44,14 @@ public class ContactManagementController : BaseController
         return Conflict($"Контакт {id} не найден");
     }
 
-    [HttpGet("contacts/{id}")]
-    public ActionResult <List<Contact>> SearchContact(int id)
+
+    [HttpDelete("contacts/{id}")]
+    public IActionResult DeleteContact(int id)
     {
-        Contact res = contactStorage.SearchContact(id);
-        if (res != null) return Ok(res);
-        return NotFound($"Контакт {id} не найден");
+        bool res = contactStorage.Remove(id);
+        if (res) return NoContent();
+        return BadRequest($"Такого id {id} не существует");
+
     }
 
 }

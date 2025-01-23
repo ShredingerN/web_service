@@ -1,5 +1,4 @@
 using Bogus;
-using Microsoft.AspNetCore.Http.Features;
 public class ContactStorage
 {
     private List<Contact> Contacts { get; set; }
@@ -63,12 +62,10 @@ public class ContactStorage
                     contact.Email = contactDto.Email;
                 }
 
-
                 if (!String.IsNullOrEmpty(contactDto.Name))
                 {
                     contact.Name = contactDto.Name;
                 }
-
 
                 if (!String.IsNullOrEmpty(contactDto.Phone))
                 {
@@ -83,10 +80,8 @@ public class ContactStorage
 
     public Contact SearchContact(int id)
     {
-
         return Contacts.FirstOrDefault(
             item => item.Id == id);
-
     }
 
 }
