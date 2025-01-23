@@ -6,8 +6,10 @@ public class TestController : BaseController
 
     //http://localhost:5000/api/Test/test
     [HttpGet("test")]
-    public string GetText()
+    public async Task<string> GetText()
     {
-        return "forecast1";
+        var result = await Task.FromResult("forecast1");
+        return result;
     }
+
 }
