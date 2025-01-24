@@ -23,6 +23,7 @@ mono_crash.*
 appsettings.Development.json
 appsettings.json
 
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
